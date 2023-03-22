@@ -1,0 +1,645 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type SuccessInfo {
+  success: Boolean!
+  message: String!
+}
+
+type SignupInfo {
+  success: Boolean!
+  message: String!
+  phone: String!
+}
+
+type RegisterInfo {
+  success: Boolean!
+  message: String!
+  token: String!
+  expire: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Provider {
+  name: String!
+  id: String!
+}
+
+type User {
+  id: ID!
+  name: String
+  phone: String
+  email: String
+  avatar: String
+  provider: Provider
+  verified: Boolean!
+  role: String!
+  points: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PageInfos {
+  hasNextPage: Boolean!
+  count: Int!
+}
+
+type GetUsers {
+  success: Boolean!
+  users: [User!]!
+  pageInfos: PageInfos!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  image: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  subCategory: [Subcategory!]
+}
+
+type Subcategory {
+  id: ID!
+  name: String!
+  slug: String!
+  image: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  category: Category
+}
+
+type Brand {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  image: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type GetBrands {
+  success: Boolean!
+  brands: [Brand!]!
+  pageInfos: PageInfos!
+}
+
+type Tag {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type GetTags {
+  success: Boolean!
+  tags: [Tag!]!
+  pageInfos: PageInfos
+}
+
+type Values {
+  value: String!
+  meta: String
+}
+
+type Attribute {
+  id: ID!
+  name: String!
+  slug: String!
+  values: [Values!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProductImage {
+  url: String
+}
+
+type ProductAttribute {
+  variant: String
+  price: Float
+  quantity: Float
+  image: String
+}
+
+type ProductMeta {
+  title: String
+  description: String
+  metaTags: [String!]
+  image: String
+}
+
+type ProductSpecification {
+  title: String
+  value: String
+}
+
+type ProductPrice {
+  highest: Float
+  lowest: Float
+}
+
+type Product {
+  id: ID
+  name: String!
+  slug: String!
+  unit: String
+  minPurchase: Float
+  refundAble: Boolean
+  productImages: [ProductImage!]
+  youtubeLink: String
+  price: Float
+  discount: Float
+  discountUnit: String
+  quantity: Float
+  specification: [ProductSpecification!]
+  doorDeliveryFee: Float
+  pickupFee: Float
+  description: String
+  productUrl: String
+  attributes: [ProductAttribute!]
+  visibility: Boolean
+  meta: ProductMeta
+  tax: Float
+  taxUnit: String
+  totalPrice: Float
+  view: Float
+  disclaimer: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  category: Category
+  subCategory: [Subcategory!]
+  brand: Brand
+  tag: [Tag!]
+}
+
+type GetProduct {
+  success: Boolean
+  products: [Product!]
+  pageInfos: PageInfos
+  priceRange: ProductPrice
+}
+
+type Seo {
+  metaTitle: String
+  metaDescription: String
+  metaTag: [String!]
+  siteUrl: String
+  ogTitle: String
+  ogDescription: String
+  ogImage: String
+}
+
+type Additional {
+  email: String
+  phone: String
+  corporateOffice: String
+  headOffice: String
+}
+
+type Social {
+  facebook: String
+  instagram: String
+  youtube: String
+  twitter: String
+  linkedIn: String
+}
+
+type Site {
+  id: ID
+  logo: String
+  icon: String
+  siteTitle: String
+  slogan: String
+  seo: Seo
+  additionInfo: Additional
+  social: Social
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Banner {
+  id: ID!
+  name: String!
+  url: String!
+  banner: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Sections {
+  id: ID!
+  name: String!
+  description: String!
+  publish: Boolean!
+  banner: String!
+  bannerUrl: String!
+  category1Product: [Product!]
+  category2Product: [Product!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  category1: Category
+  category2: Category
+}
+
+type Slider {
+  id: ID!
+  name: String!
+  url: String!
+  slider: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Gallery {
+  id: ID!
+  name: String!
+  url: String!
+  gallery: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Dashboard {
+  totalProduct: Float
+  totalUser: Float
+}
+
+type Query {
+  getCategories: [Category!]!
+  getCategory(slug: String!): Category!
+  getSubCategories: [Subcategory!]!
+  getSubCategory(slug: String!): Subcategory!
+  getProfile: User!
+  getUsers(userPrams: UserPrams!): GetUsers!
+  getBrands(brandPrams: BrandParams!): GetBrands!
+  getBrand(slug: String!): Brand!
+  getTags(tagPrams: TagPrams!): GetTags!
+  getTag(slug: String!): Tag!
+  getProducts(productPrams: ProductPrams!): GetProduct!
+  getProduct(slug: String!): Product!
+  getSellingProduct(slug: String!): [Product!]!
+  getAttributes: [Attribute!]!
+  getAttribute(slug: String!): Attribute!
+  getSiteSettings: Site!
+  getBanners: [Banner!]!
+  getSliders: [Slider!]!
+  getGallery: [Gallery!]!
+  getSections: [Sections!]!
+  getSingleSection(id: ID!): Sections!
+  getDashboard: Dashboard!
+}
+
+input UserPrams {
+  search: String
+  skip: Int
+  limit: Int
+}
+
+input BrandParams {
+  search: String
+  limit: Int
+  skip: Int
+}
+
+input TagPrams {
+  search: String
+  limit: Int
+  skip: Int
+}
+
+input ProductPrams {
+  search: String
+  limit: Float
+  skip: String
+  order: String
+  sortBy: String
+  category: String
+  subCategory: [String!]
+  brand: String
+  price: [Float!]
+  visibility: Boolean
+}
+
+type Mutation {
+  addCategory(categoryInput: CategoryInput!): SuccessInfo!
+  updateCategory(updateCateInput: UpdateCateInput!, id: ID!): SuccessInfo!
+  deleteCategory(id: ID!): SuccessInfo!
+  addSubCategory(subCategoryInput: SubCategoryInput!): SuccessInfo!
+  updateSubCategory(updateSubInput: UpdateSubInput!, id: ID!): SuccessInfo!
+  deleteSubCategory(id: ID!): SuccessInfo!
+  signup(signupInput: SignupInput!): SignupInfo!
+  resendOtp(phone: String!): SuccessInfo!
+  phoneLogin(phone: String!): SignupInfo!
+  verifyPhone(verifyPhoneInput: VerifyPhoneInput!): RegisterInfo!
+  login(loginInput: LoginInput!): RegisterInfo!
+  loginAdmin(loginInput: LoginInput!): RegisterInfo!
+  googleLogin(googleInput: GoogleInput!): RegisterInfo!
+  facebookLogin(facebookInput: FacebookInput!): RegisterInfo!
+  updateProfile(updateUserInput: UpdateUserInput!): SuccessInfo!
+  chanegPassword(changePasswordInput: ChangePassowrdInput!): SuccessInfo!
+  forgetPassword(forgetPasswordInput: ForgetPasswordInput!): SignupInfo!
+  resetPassword(resetPasswordInput: ResetPasswordInput!): SuccessInfo!
+  phoneAvailability(phoneInput: PhoneInput!): SuccessInfo!
+  changePhone(phoneInput: PhoneInput!): SuccessInfo!
+  changePhoneVerify(verifyPhoneInput: VerifyPhoneInput!): SuccessInfo!
+  changeRole(roleInput: RoleInput!): SuccessInfo!
+  checkToken: SuccessInfo!
+  deleteUser(id: ID!): SuccessInfo!
+  addBrand(brandInput: BrandInput!): SuccessInfo!
+  updateBrand(id: ID!, updateBrandInput: UpdateBrandInput!): SuccessInfo!
+  deleteBrand(id: ID!): SuccessInfo!
+  addTag(tagInput: TagInput!): SuccessInfo!
+  updateTag(id: ID!, updateTagInput: UpdateTagInput!): SuccessInfo!
+  deleteTag(id: ID!): SuccessInfo!
+  addProduct(productInput: ProductInput!): SuccessInfo!
+  updateProduct(productUpdateInput: ProductUpdateInput!, id: ID!): SuccessInfo!
+  updateProductView(id: ID!): SuccessInfo!
+  changeProductVisibility(id: ID!, visibility: Boolean!): SuccessInfo!
+  deleteProduct(id: ID!): SuccessInfo!
+  addAttribute(attributeInput: AttributeInput!): SuccessInfo!
+  updateAttribute(updateAttributeInput: UpdateAttributeInput!, id: ID!): SuccessInfo!
+  deleteAttribute(id: ID!): SuccessInfo!
+  siteSettings(siteInput: SiteInput!): SuccessInfo!
+  addBanner(bannerInput: BannerInput!): SuccessInfo!
+  deleteBanner(id: ID!): SuccessInfo!
+  addSlider(sliderInput: SliderInput!): SuccessInfo!
+  deleteSlider(id: ID!): SuccessInfo!
+  addGallery(galleryInput: GalleryInput!): SuccessInfo!
+  deleteGallery(id: ID!): SuccessInfo!
+  addSection(sectionInput: SectionInput!): SuccessInfo!
+  updateSection(sectionInput: SectionInput!, id: ID!): SuccessInfo!
+}
+
+input CategoryInput {
+  name: String!
+  image: String
+  description: String
+}
+
+input UpdateCateInput {
+  name: String
+  image: String
+  description: String
+}
+
+input SubCategoryInput {
+  name: String!
+  image: String
+  category: ID!
+}
+
+input UpdateSubInput {
+  name: String
+  image: String
+  category: ID
+}
+
+input SignupInput {
+  name: String!
+  phone: String!
+  email: String
+  password: String!
+}
+
+input VerifyPhoneInput {
+  phone: String!
+  otp: String!
+}
+
+input LoginInput {
+  phoneOrEmail: String!
+  password: String!
+}
+
+input GoogleInput {
+  code: String
+  idToken: String
+}
+
+input FacebookInput {
+  userId: String!
+  accessToken: String!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  avatar: String
+}
+
+input ChangePassowrdInput {
+  oldPassword: String!
+  newPassword: String!
+}
+
+input ForgetPasswordInput {
+  phone: String!
+}
+
+input ResetPasswordInput {
+  phone: String!
+  code: String!
+  password: String!
+}
+
+input PhoneInput {
+  phone: String!
+}
+
+input RoleInput {
+  id: ID!
+  role: String!
+}
+
+input BrandInput {
+  name: String!
+  description: String
+  image: String
+}
+
+input UpdateBrandInput {
+  name: String
+  description: String
+  image: String
+}
+
+input TagInput {
+  name: String!
+  description: String
+}
+
+input UpdateTagInput {
+  name: String
+  description: String
+}
+
+input ProductInput {
+  name: String!
+  category: ID!
+  subCategory: [ID!]
+  brand: ID
+  unit: String
+  minPurchase: String
+  productUrl: String
+  tag: [ID!]
+  productImages: [ProductImageInput!]
+  youtubeLink: String
+  price: Float!
+  discount: Float!
+  discountUnit: String!
+  quantity: Float
+  description: String
+  attributes: [ProductAttributeInput!]
+  visibility: Boolean
+  specification: [ProductSpecificationInput!]
+  meta: ProductMetaInput
+  doorDeliveryFee: Float
+  pickupFee: Float
+  tax: Float!
+  taxUnit: String!
+  disclaimer: String!
+}
+
+input ProductImageInput {
+  url: String
+}
+
+input ProductAttributeInput {
+  variant: String
+  price: String
+  quantity: String
+  image: String
+}
+
+input ProductSpecificationInput {
+  title: String
+  value: String
+}
+
+input ProductMetaInput {
+  title: String
+  description: String
+  metaTags: [String!]
+  image: String
+}
+
+input ProductUpdateInput {
+  name: String
+  category: ID
+  subCategory: [ID!]
+  brand: ID
+  unit: String
+  minPurchase: String
+  tag: [ID!]
+  productImages: [ProductImageInput!]
+  youtubeLink: String
+  price: Float!
+  discount: Float!
+  productUrl: String
+  discountUnit: String!
+  quantity: Float
+  description: String
+  specification: [ProductSpecificationInput!]
+  attributes: [ProductAttributeInput!]
+  visibility: Boolean
+  meta: ProductMetaInput
+  doorDeliveryFee: Float
+  pickupFee: Float
+  tax: Float!
+  taxUnit: String!
+  disclaimer: String
+}
+
+input AttributeInput {
+  name: String!
+  values: [ValuesInput!]!
+}
+
+input ValuesInput {
+  value: String!
+  meta: String
+}
+
+input UpdateAttributeInput {
+  name: String
+  values: [UpdateValueInput!]
+}
+
+input UpdateValueInput {
+  value: String
+  meta: String
+}
+
+input SiteInput {
+  logo: String
+  icon: String
+  siteTitle: String
+  slogan: String
+  seo: SeoInput
+  additionInfo: AdditionalInput
+  social: SocialInput
+}
+
+input SeoInput {
+  metaTitle: String
+  metaDescription: String
+  metaTag: [String!]
+  siteUrl: String
+  ogTitle: String
+  ogDescription: String
+  ogImage: String
+}
+
+input AdditionalInput {
+  email: String
+  phone: String
+  corporateOffice: String
+  headOffice: String
+}
+
+input SocialInput {
+  facebook: String
+  instagram: String
+  youtube: String
+  twitter: String
+  linkedIn: String
+}
+
+input BannerInput {
+  name: String!
+  url: String!
+  banner: String!
+}
+
+input SliderInput {
+  name: String!
+  url: String!
+  slider: String!
+}
+
+input GalleryInput {
+  name: String!
+  url: String!
+  gallery: String!
+}
+
+input SectionInput {
+  name: String
+  description: String
+  category1: ID
+  category2: ID
+  banner: String
+  bannerUrl: String
+  publish: Boolean
+}
