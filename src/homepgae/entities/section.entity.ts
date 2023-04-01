@@ -14,6 +14,8 @@ export class Sections {
     id: ObjectId;
     @Field(() => String, { nullable: false })
     name: string;
+    @Field(() => String, { nullable: true })
+    color: string;
     @Field(() => String, { nullable: false })
     description: string;
     @Field(() => Boolean, { nullable: false })

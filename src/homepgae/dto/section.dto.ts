@@ -12,6 +12,11 @@ export class SectionInput {
     @Field(() => String, { nullable: true })
     @IsString()
     @IsOptional()
+    color: string;
+
+    @Field(() => String, { nullable: true })
+    @IsString()
+    @IsOptional()
     description: string;
 
     @Field(() => ID, { nullable: true })

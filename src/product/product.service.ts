@@ -119,7 +119,7 @@ export class ProductService {
         const product = await this.productModel.findOne({
             slug: slug
         });
-        await this.productModel.findByIdAndUpdate(product.id, {
+        await this.productModel.findByIdAndUpdate(product?.id, {
             $inc: {
                 view: 1
             }

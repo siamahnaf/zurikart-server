@@ -261,6 +261,7 @@ type DynamicBanner {
 type Sections {
   id: ID!
   name: String!
+  color: String
   description: String!
   publish: Boolean!
   banner: String!
@@ -620,6 +621,7 @@ input GalleryInput {
 
 input SectionInput {
   name: String
+  color: String
   description: String
   category1: ID
   category2: ID

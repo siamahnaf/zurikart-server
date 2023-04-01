@@ -10,6 +10,8 @@ export type SectionDocument = Section & Document;
 export class Section {
     @Prop({ type: String, required: true })
     name: string;
+    @Prop({ type: String })
+    color: string;
     @Prop({ type: String, required: true })
     description: string;
     @Prop({ type: Schemas.Types.ObjectId, required: true, ref: "Category" })
