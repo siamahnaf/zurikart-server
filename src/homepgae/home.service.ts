@@ -125,7 +125,7 @@ export class HomeService {
             });
             sections[i].category1Product = category1Product.slice(0, 10)
             const category2Product: Products[] = await this.productModel.find({
-                category: sections[i].category2
+                subCategory: [sections[i].category2]
             });
             sections[i].category2Product = category2Product.slice(0, 10)
             const banners: DynamicBanners[] = await this.dynamicModel.find({

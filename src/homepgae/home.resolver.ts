@@ -161,6 +161,6 @@ export class HomeResolver {
         @Parent() section: Sections,
         @Context() { loaders }: IGraphQLContext
     ) {
-        return loaders.categoryLoader.load(section.category2);
+        return loaders.subCategoryLoader.load(section.category2);
     }
 }
