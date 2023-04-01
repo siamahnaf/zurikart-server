@@ -8,6 +8,8 @@ import { SliderDocument, Slider } from "./model/slider.schema";
 import { SectionDocument, Section } from "./model/section.schema";
 import { ProductDocument, Product } from "src/product/model/product.schema";
 import { GalleryDocument, Gallery } from "./model/gallery.schema";
+import { DynamicBanner, DynamicBannerDocument } from "src/banner/model/banner.model";
+import { DynamicBanner as DynamicBanners } from "src/banner/entities/banner.entity";
 
 //Entities
 import { SuccessInfo } from "src/user/entities/success.entity";
@@ -28,7 +30,8 @@ export class HomeService {
         @InjectModel(Section.name) private sectionModel: Model<SectionDocument>,
         @InjectModel(Product.name) private productModel: Model<ProductDocument>,
         @InjectModel(Slider.name) private sliderModel: Model<SliderDocument>,
-        @InjectModel(Gallery.name) private galleryModel: Model<GalleryDocument>
+        @InjectModel(Gallery.name) private galleryModel: Model<GalleryDocument>,
+        @InjectModel(DynamicBanner.name) private dynamicModel: Model<DynamicBannerDocument>
     ) { };
 
     //////Banner part
@@ -125,6 +128,10 @@ export class HomeService {
                 category: sections[i].category2
             });
             sections[i].category2Product = category2Product.slice(0, 10)
+            const banners: DynamicBanners[] = await this.dynamicModel.find({
+                section: sections[i].id
+            })
+            sections[i].dynamicBanner = banners;
         }
         return sections
     }
@@ -152,5 +159,14 @@ export class HomeService {
             success: true,
             message: "Section updated successfully!"
         }
+    }
+
+    async findSectionByBatch(Ids: ObjectId[]): Promise<(Section | Error)[]> {
+        const sections = await this.sectionModel.find({ _id: { $in: Ids } });
+        const mappedResults = Ids.map(
+            (id) =>
+                sections.find((result) => result.id === id.toString())
+        );
+        return mappedResults;
     }
 }

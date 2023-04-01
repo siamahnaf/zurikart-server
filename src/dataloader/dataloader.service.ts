@@ -11,6 +11,7 @@ import { UserService } from "src/user/user.service";
 import { BrandService } from "src/brand/brand.service";
 import { TagService } from "src/tag/tag.service";
 import { ProductService } from "src/product/product.service";
+import { HomeService } from "src/homepgae/home.service";
 
 //Schema
 //-----Category Schema
@@ -24,6 +25,7 @@ import { Brand } from "src/brand/model/brand.schema";
 import { Tag } from "src/tag/model/tag.schema";
 //----Product Schema
 import { Product } from "src/product/model/product.schema";
+import { Section } from "src/homepgae/model/section.schema";
 
 @Injectable()
 export class DataloaderService {
@@ -32,7 +34,8 @@ export class DataloaderService {
         private readonly userService: UserService,
         private readonly brandService: BrandService,
         private readonly tagService: TagService,
-        private readonly productService: ProductService
+        private readonly productService: ProductService,
+        private readonly homeService: HomeService
     ) { };
 
     createLoaders(): IDataloaders {
@@ -60,13 +63,18 @@ export class DataloaderService {
             async (keys: readonly ObjectId[]) =>
                 this.productService.findProductByBatch(keys as ObjectId[])
         )
+        const sectionLoader = new DataLoader<ObjectId, Section>(
+            async (keys: readonly ObjectId[]) =>
+                this.homeService.findSectionByBatch(keys as ObjectId[])
+        )
         return {
             categoryLoader,
             subCategoryLoader,
             userLoader,
             brandLoader,
             tagLoader,
-            productLoader
+            productLoader,
+            sectionLoader
         };
     }
 }

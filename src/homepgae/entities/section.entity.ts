@@ -3,6 +3,7 @@ import { ObjectId } from "mongoose";
 
 //Products
 import { Product } from "src/product/entities/product.entity";
+import { DynamicBanner } from "src/banner/entities/banner.entity";
 
 //Date-scalar
 import { DateScalar } from "src/date.scalar";
@@ -25,6 +26,8 @@ export class Sections {
     banner: string;
     @Field(() => String, { nullable: false })
     bannerUrl: string;
+    @Field(() => [DynamicBanner], { nullable: true })
+    dynamicBanner: DynamicBanner[];
     @Field(() => [Product], { nullable: true })
     category1Product: Product[];
     @Field(() => [Product], { nullable: true })

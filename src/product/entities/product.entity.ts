@@ -85,6 +85,12 @@ export class Product {
     discount: number;
     @Field(() => String, { nullable: true })
     discountUnit: string;
+    @Field(() => String, { nullable: true })
+    badge: string;
+    @Field(() => String, { nullable: true })
+    notice: string;
+    @Field(() => String, { nullable: true })
+    shortSummery: string;
     @Field(() => Float, { nullable: true })
     quantity: number;
     @Field(() => [ProductSpecification], { nullable: true })

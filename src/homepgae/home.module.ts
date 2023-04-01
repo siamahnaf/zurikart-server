@@ -14,6 +14,7 @@ import { Gallery, GallerySchema } from "./model/gallery.schema";
 //Module
 import { UserModule } from "src/user/user.module";
 import { ProductModule } from "src/product/product.module";
+import { BannerModule } from "src/banner/banner.module";
 
 @Module({
     imports: [
@@ -31,8 +32,10 @@ import { ProductModule } from "src/product/product.module";
             schema: GallerySchema
         }]),
         UserModule,
-        ProductModule
+        ProductModule,
+        BannerModule
     ],
-    providers: [HomeService, HomeResolver]
+    providers: [HomeService, HomeResolver],
+    exports: [MongooseModule, HomeService]
 })
 export class HomeModule { }

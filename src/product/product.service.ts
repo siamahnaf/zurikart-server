@@ -119,6 +119,11 @@ export class ProductService {
         const product = await this.productModel.findOne({
             slug: slug
         });
+        await this.productModel.findByIdAndUpdate(product.id, {
+            $inc: {
+                view: 1
+            }
+        })
         if (!product) throw new NotFoundException("Product not found!");
         return product;
     }

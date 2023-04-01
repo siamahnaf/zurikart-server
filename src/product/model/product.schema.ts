@@ -94,6 +94,12 @@ export class Product {
     description: string;
     @Prop({ type: String })
     productUrl: string;
+    @Prop({ type: String })
+    badge: string;
+    @Prop({ type: String })
+    notice: string;
+    @Prop({ type: String })
+    shortSummery: string;
     @Prop({ type: [AttributeSchema] })
     attributes: Attributes[];
     @Prop({ type: Boolean })

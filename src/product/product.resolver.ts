@@ -47,6 +47,8 @@ export class ProductResolver {
         return this.productService.getProduct(slug)
     }
 
+
+
     //Get selling product
     @Query(() => [Product], { name: "getSellingProduct" })
     getSelling(

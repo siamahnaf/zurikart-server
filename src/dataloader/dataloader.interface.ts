@@ -8,6 +8,7 @@ import { User } from "src/user/model/user.schema";
 import { Brand } from "src/brand/model/brand.schema";
 import { Tag } from "src/tag/model/tag.schema";
 import { Product } from "src/product/model/product.schema";
+import { Section } from "src/homepgae/model/section.schema";
 
 export interface IDataloaders {
     categoryLoader: DataLoader<ObjectId, Category>;
@@ -16,4 +17,5 @@ export interface IDataloaders {
     brandLoader: DataLoader<ObjectId, Brand>;
     tagLoader: DataLoader<ObjectId, Tag>;
     productLoader: DataLoader<ObjectId, Product>;
+    sectionLoader: DataLoader<ObjectId, Section>;
 }

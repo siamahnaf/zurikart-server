@@ -22,6 +22,7 @@ import { ProductModule } from "./product/product.module";
 import { SiteModule } from './sites/sites.module';
 import { HomeModule } from "./homepgae/home.module";
 import { DashModule } from "./dashboard/dashboard.module";
+import { BannerModule } from "./banner/banner.module";
 
 //Dataloader
 import { DataloaderService } from "./dataloader/dataloader.service";
@@ -62,7 +63,8 @@ import { DataloaderModule } from "./dataloader/dataloader.module";
     ProductModule,
     SiteModule,
     HomeModule,
-    DashModule
+    DashModule,
+    BannerModule
   ]
 })
 export class AppModule { }

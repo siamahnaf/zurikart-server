@@ -85,6 +85,21 @@ export class ProductUpdateInput {
     @IsOptional()
     description: string;
 
+    @Field(() => String, { nullable: true })
+    @IsString()
+    @IsOptional()
+    badge: string;
+
+    @Field(() => String, { nullable: true })
+    @IsString()
+    @IsOptional()
+    notice: string;
+
+    @Field(() => String, { nullable: true })
+    @IsString()
+    @IsOptional()
+    shortSummery: string;
+
     @Field(() => [ProductSpecificationInput], { nullable: true })
     @IsArray()
     @IsOptional()

@@ -161,6 +161,9 @@ type Product {
   price: Float
   discount: Float
   discountUnit: String
+  badge: String
+  notice: String
+  shortSummery: String
   quantity: Float
   specification: [ProductSpecification!]
   doorDeliveryFee: Float
@@ -237,6 +240,24 @@ type Banner {
   updatedAt: DateTime!
 }
 
+type BannerImage {
+  url: String
+  text: String
+  link: String
+}
+
+type DynamicBanner {
+  id: String!
+  title: String!
+  bannerType: String!
+  banners: [BannerImage!]
+  totalNumber: String!
+  publish: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  section: Sections
+}
+
 type Sections {
   id: ID!
   name: String!
@@ -244,6 +265,7 @@ type Sections {
   publish: Boolean!
   banner: String!
   bannerUrl: String!
+  dynamicBanner: [DynamicBanner!]
   category1Product: [Product!]
   category2Product: [Product!]
   createdAt: DateTime!
@@ -270,6 +292,10 @@ type Gallery {
   updatedAt: DateTime!
 }
 
+type Articles {
+  description: String!
+}
+
 type Dashboard {
   totalProduct: Float
   totalUser: Float
@@ -289,14 +315,17 @@ type Query {
   getProducts(productPrams: ProductPrams!): GetProduct!
   getProduct(slug: String!): Product!
   getSellingProduct(slug: String!): [Product!]!
-  getAttributes: [Attribute!]!
-  getAttribute(slug: String!): Attribute!
-  getSiteSettings: Site!
   getBanners: [Banner!]!
   getSliders: [Slider!]!
   getGallery: [Gallery!]!
   getSections: [Sections!]!
   getSingleSection(id: ID!): Sections!
+  getDynamicBanners: [DynamicBanner!]!
+  getSingleDynamic(id: String!): DynamicBanner!
+  getArticles: Articles!
+  getAttributes: [Attribute!]!
+  getAttribute(slug: String!): Attribute!
+  getSiteSettings: Site!
   getDashboard: Dashboard!
 }
 
@@ -367,10 +396,6 @@ type Mutation {
   updateProductView(id: ID!): SuccessInfo!
   changeProductVisibility(id: ID!, visibility: Boolean!): SuccessInfo!
   deleteProduct(id: ID!): SuccessInfo!
-  addAttribute(attributeInput: AttributeInput!): SuccessInfo!
-  updateAttribute(updateAttributeInput: UpdateAttributeInput!, id: ID!): SuccessInfo!
-  deleteAttribute(id: ID!): SuccessInfo!
-  siteSettings(siteInput: SiteInput!): SuccessInfo!
   addBanner(bannerInput: BannerInput!): SuccessInfo!
   deleteBanner(id: ID!): SuccessInfo!
   addSlider(sliderInput: SliderInput!): SuccessInfo!
@@ -379,6 +404,14 @@ type Mutation {
   deleteGallery(id: ID!): SuccessInfo!
   addSection(sectionInput: SectionInput!): SuccessInfo!
   updateSection(sectionInput: SectionInput!, id: ID!): SuccessInfo!
+  addDynamicBanner(dynamicBannerInput: DynamicBannerInput!): SuccessInfo!
+  updateDynamicBanner(dynamicBannerInput: DynamicBannerInput!, id: String!): SuccessInfo!
+  deleteDynamicBanners(id: String!): SuccessInfo!
+  saveArticles(articlesInput: ArticlesInput!): SuccessInfo!
+  addAttribute(attributeInput: AttributeInput!): SuccessInfo!
+  updateAttribute(updateAttributeInput: UpdateAttributeInput!, id: ID!): SuccessInfo!
+  deleteAttribute(id: ID!): SuccessInfo!
+  siteSettings(siteInput: SiteInput!): SuccessInfo!
 }
 
 input CategoryInput {
@@ -500,6 +533,9 @@ input ProductInput {
   discountUnit: String!
   quantity: Float
   description: String
+  badge: String
+  notice: String
+  shortSummery: String
   attributes: [ProductAttributeInput!]
   visibility: Boolean
   specification: [ProductSpecificationInput!]
@@ -550,6 +586,9 @@ input ProductUpdateInput {
   discountUnit: String!
   quantity: Float
   description: String
+  badge: String
+  notice: String
+  shortSummery: String
   specification: [ProductSpecificationInput!]
   attributes: [ProductAttributeInput!]
   visibility: Boolean
@@ -559,6 +598,53 @@ input ProductUpdateInput {
   tax: Float!
   taxUnit: String!
   disclaimer: String
+}
+
+input BannerInput {
+  name: String!
+  url: String!
+  banner: String!
+}
+
+input SliderInput {
+  name: String!
+  url: String!
+  slider: String!
+}
+
+input GalleryInput {
+  name: String!
+  url: String!
+  gallery: String!
+}
+
+input SectionInput {
+  name: String
+  description: String
+  category1: ID
+  category2: ID
+  banner: String
+  bannerUrl: String
+  publish: Boolean
+}
+
+input DynamicBannerInput {
+  title: String!
+  bannerType: String!
+  totalNumber: String!
+  publish: Boolean!
+  banners: [DynamicBannerImageInput!]
+  section: String!
+}
+
+input DynamicBannerImageInput {
+  url: String
+  text: String
+  link: String
+}
+
+input ArticlesInput {
+  description: String!
 }
 
 input AttributeInput {
@@ -614,32 +700,4 @@ input SocialInput {
   youtube: String
   twitter: String
   linkedIn: String
-}
-
-input BannerInput {
-  name: String!
-  url: String!
-  banner: String!
-}
-
-input SliderInput {
-  name: String!
-  url: String!
-  slider: String!
-}
-
-input GalleryInput {
-  name: String!
-  url: String!
-  gallery: String!
-}
-
-input SectionInput {
-  name: String
-  description: String
-  category1: ID
-  category2: ID
-  banner: String
-  bannerUrl: String
-  publish: Boolean
 }
